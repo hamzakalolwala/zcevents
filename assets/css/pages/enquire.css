@@ -21,7 +21,7 @@
 .enquire-note__text { margin: 0; color: var(--ink); }
 /* A link on its own line, so it gets a 44px touch target. The 9px above the text inside that box
    takes the place of the old 8px top margin. */
-.enquire-note__email { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+.enquire-note__email { display: flex; width: fit-content; max-width: 100%; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
 
 /* Tablets: stack, form first; the aside sets its notes beside the arch. */
 @media (max-width: 960px) {

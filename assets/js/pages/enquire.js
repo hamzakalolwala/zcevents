@@ -20,20 +20,30 @@
     return month ? parseInt(m[3], 10) + ' ' + month + ' ' + m[1] : (value || '');
   }
 
-  /** The enquiry as a mailto: URL to the studio: a subject line and a plain-text body. Empty optional
-      fields are left out. Line breaks are CRLF, as mailto: bodies expect. */
-  function mailtoFor(v) {
-    var date = longDate(v.date);
-    var subject = 'Enquiry: ' + (v.ceremony || 'Wedding') + ', ' + date;
-    var lines = ['Name: ' + v.name, 'Phone: ' + v.phone, 'Date: ' + date];
+  /** The enquiry written out, one line per field; empty optional fields are left out. */
+  function enquiryLines(v) {
+    var lines = ['Name: ' + v.name, 'Phone: ' + v.phone, 'Date: ' + longDate(v.date)];
     if (v.ceremony) lines.push('Ceremony: ' + v.ceremony);
     if (v.venue) lines.push('Venue: ' + v.venue);
-    if (v.message) lines.push('', 'Message:', v.message.replace(/\r?\n/g, '\r\n'));
-    return 'mailto:' + S.EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\r\n'));
+    if (v.message) lines.push('', 'Message:', v.message.replace(/\r?\n/g, '\n'));
+    return lines;
+  }
+
+  /** The enquiry as a mailto: URL to the studio. Line breaks are CRLF, as mailto: bodies expect. */
+  function mailtoFor(v) {
+    var subject = 'Enquiry: ' + (v.ceremony || 'Wedding') + ', ' + longDate(v.date);
+    var body = enquiryLines(v).join('\n').replace(/\n/g, '\r\n');
+    return 'mailto:' + S.EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+
+  /** The enquiry as a WhatsApp chat with the studio, the message typed in and ready to send. */
+  function whatsappFor(v) {
+    return S.whatsappHref(['Hello ZC Events, I would like to enquire about the decor for our celebration.', ''].concat(enquiryLines(v)).join('\n'));
   }
 
   function EnquirePage() {
-    /* The mailto: URL once the enquiry is sent; null until then. */
+    /* Once the enquiry is sent: { url, via: 'whatsapp' | 'email', mailto }; null until then. The
+       mailto always carries the enquiry, so the email fallback never makes anyone type it again. */
     var sentState = React.useState(null), sent = sentState[0], setSent = sentState[1];
     var formRef = React.useRef(null);
     var photo = S.photo(ASIDE_PHOTO);
@@ -54,15 +64,22 @@
     }, [tries]);
     function tried() { setTries(function (n) { return n + 1; }); }
 
+    /* With a WhatsApp number set, enquiries go to WhatsApp; otherwise to the visitor's email app. */
+    var byWhatsApp = !!S.WHATSAPP;
     function send(values) {
-      var url = mailtoFor(values);
-      w.location.href = url;
-      setSent(url);
+      var url = byWhatsApp ? whatsappFor(values) : mailtoFor(values);
+      S.go(url, byWhatsApp);
+      setSent({ url: url, via: byWhatsApp ? 'whatsapp' : 'email', mailto: mailtoFor(values) });
     }
 
-    var thanks = h(React.Fragment, null,
-      'Your email app should have opened with your enquiry ready; please press send there to reach us. If nothing opened, write to us at ',
-      h('a', { href: sent || 'mailto:' + S.EMAIL }, S.EMAIL), '.');
+    var email = h('a', { href: sent ? sent.mailto : 'mailto:' + S.EMAIL }, S.EMAIL);
+    var thanks = sent && sent.via === 'whatsapp'
+      ? h(React.Fragment, null,
+          'WhatsApp should have opened with your enquiry ready; please press send there to reach us. If nothing opened, ',
+          h('a', { href: sent.url, target: '_blank', rel: 'noopener' }, 'open the chat here'), ', or send it to us by email at ', email, '.')
+      : h(React.Fragment, null,
+          'Your email app should have opened with your enquiry ready; please press send there to reach us. If nothing opened, write to us at ',
+          email, '.');
 
     return h(S.Page, { page: 'enquire', credit: S.creditFor([ASIDE_PHOTO]) },
       h(S.Section, { tone: 'surface', id: 'enquiry-form' },
@@ -75,16 +92,18 @@
             }),
             /* The form's submit bubbles here after EnquiryForm has checked the fields. */
             h('div', { className: 'site-after-heading enquire-form', ref: formRef, tabIndex: sent ? -1 : undefined, onSubmit: tried },
-              h(Z.EnquiryForm, { onSubmit: send, submitted: sent !== null, successTitle: 'Thank you', successMessage: thanks }))),
+              h(Z.EnquiryForm, { onSubmit: send, submitted: sent !== null, successTitle: 'Thank you', successMessage: thanks,
+                submitLabel: byWhatsApp ? 'Send on WhatsApp' : 'Send enquiry' }))),
           h('aside', { className: 'enquire-aside' },
             h('div', { className: 'enquire-notes' },
               h('div', { className: 'enquire-note' },
                 h('h2', { className: 'enquire-note__title t-label' }, 'What happens next'),
                 h('p', { className: 'enquire-note__text' },
-                  'We write back by email to talk through the day with you.')),
+                  'We will reply to talk through the day with you.')),
               h('div', { className: 'enquire-note' },
                 h('h2', { className: 'enquire-note__title t-label' }, 'Write to us'),
                 h('p', { className: 'enquire-note__text' }, 'You are welcome to write to us directly, in your own words.'),
+                byWhatsApp && h('a', { className: 'enquire-note__email', href: S.whatsappHref(''), target: '_blank', rel: 'noopener' }, 'Message us on WhatsApp'),
                 h('a', { className: 'enquire-note__email', href: 'mailto:' + S.EMAIL }, S.EMAIL))),
             h(Z.ArchFrame, { src: photo.src, alt: photo.alt, caption: photo.caption, position: photo.position })))));
   }

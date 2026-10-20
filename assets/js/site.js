@@ -7,6 +7,23 @@
   var SITE = (w.ZCSite = w.ZCSite || { pages: {} });
 
   SITE.EMAIL = 'zehracreationzc@gmail.com';
+  /** The studio's WhatsApp number: country code then number, digits only (e.g. '919800000000').
+      Empty: the enquiry form sends by email. Set: it sends on WhatsApp, with email still offered. */
+  SITE.WHATSAPP = '919884939952';
+  /** A link that opens a WhatsApp chat with the studio, with `text` already typed in. WhatsApp's own
+      send link, not the wa.me short link: wa.me's redirect turns emoji into "�". */
+  SITE.whatsappHref = function (text) {
+    return 'https://api.whatsapp.com/send?phone=' + SITE.WHATSAPP + (text ? '&text=' + encodeURIComponent(text) : '');
+  };
+  /** Leave for a mailto: or WhatsApp link. WhatsApp opens in a new tab (the app, on a phone) so the
+      thank-you note stays on the site; if the browser blocks that, it opens here instead. */
+  SITE.go = function (url, newTab) {
+    if (newTab) {
+      var win = w.open(url, '_blank');
+      if (win) { try { win.opener = null; } catch (e) { /* cross-origin already */ } return; }
+    }
+    w.location.href = url;
+  };
   SITE.YEAR = 2026;
   SITE.CREDIT = 'Photography: Clicktography';
 
@@ -142,7 +159,7 @@
       h(Z.SectionHeading, {
         eyebrow: 'Enquire',
         title: h(React.Fragment, null, 'Tell us about the ', h('em', null, 'day')),
-        intro: 'Share the date, the ceremony and anything you already have in mind, and we will reply by email to talk it through.',
+        intro: 'Share the date, the ceremony and anything you already have in mind, and we will reply to talk it through.',
       }),
       h('div', { className: 'site-more' }, h(Z.Button, { variant: 'primary', href: SITE.HREF.enquire }, 'Enquire')));
   };
