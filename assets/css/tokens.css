@@ -1,0 +1,119 @@
+/* ZC Events — generated from design-system/tokens.json by build/build.mjs. Don't edit by hand. */
+
+@font-face { font-family: "Playfair Display"; src: url("../fonts/PlayfairDisplay-Variable.woff2") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+
+@font-face { font-family: "Playfair Display"; src: url("../fonts/PlayfairDisplay-Italic-Variable.woff2") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+
+@font-face { font-family: "Poppins"; src: url("../fonts/Poppins-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+
+@font-face { font-family: "Poppins"; src: url("../fonts/Poppins-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+@font-face { font-family: "Poppins"; src: url("../fonts/Poppins-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+
+@font-face { font-family: "Pinyon Script"; src: url("../fonts/PinyonScript-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --surface: #fcf8f2;
+  --surface-raised: #fffdfa;
+  --surface-tint: #f9ecda;
+  --surface-deep: #3c2a18;
+  --ink: #3c2a18;
+  --ink-muted: #6b5543;
+  --on-deep: #f9ecda;
+  --line: #e8d9c4;
+  --line-strong: #9c8167;
+  --champagne: #deb885;
+  --champagne-ink: #7d5a24;
+  --blush: #e0a7b8;
+  --blush-soft: #f8e6ea;
+  --rose: #9b3c6a;
+  --on-rose: #fffaf3;
+  --link: var(--rose);
+  --logo-pink: #d576a0;
+  --logo-lines: #d49bb7;
+  --logo-pink-on-light: #b1517e;
+  --logo-lines-on-light: #925976;
+  --leaf: #636426;
+  --leaf-soft: #eeeedb;
+  --danger: #c62d23;
+  --danger-soft: #fbe7e3;
+  --scrim: #1d1510a6;
+  --shadow-sm: 0 1px 2px #3c2a1814, 0 4px 12px #3c2a180d;
+  --shadow-lg: 0 12px 32px -8px #3c2a1840, 0 2px 8px #3c2a1814;
+  --focus-ring: 0 0 0 2px #fcf8f2, 0 0 0 4px #9b3c6a;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1d1510;
+  --surface-raised: #271d16;
+  --surface-tint: #2e231a;
+  --surface-deep: #120c08;
+  --ink: #f6ecdf;
+  --ink-muted: #c9b7a3;
+  --on-deep: #f6ecdf;
+  --line: #3b2e24;
+  --line-strong: #8a7461;
+  --champagne: #deb885;
+  --champagne-ink: #e6c796;
+  --blush: #e0a7b8;
+  --blush-soft: #3b2328;
+  --rose: #e593b5;
+  --on-rose: #2a0f1d;
+  --link: var(--rose);
+  --leaf: #bfc27a;
+  --leaf-soft: #26270f;
+  --danger: #ff9a8a;
+  --danger-soft: #3d1712;
+  --shadow-sm: 0 1px 3px #000000a6;
+  --shadow-lg: 0 16px 40px -8px #000000d9;
+  --focus-ring: 0 0 0 2px #1d1510, 0 0 0 4px #e593b5;
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-pill: 9999px;
+  --radius-arch: 9999px;
+  --container: 1200px;
+  --container-narrow: 760px;
+  --measure: 640px;
+  --font-display: "Playfair Display", Didot, "Bodoni 72", Georgia, serif;
+  --font-script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
+  --font-sans: Poppins, "Century Gothic", "Avenir Next", system-ui, sans-serif;
+}
+
+.t-display-xl { font-family: var(--font-display); font-size: 64px; line-height: 70px; font-weight: 500; letter-spacing: -0.005em; }
+
+.t-display { font-family: var(--font-display); font-size: 48px; line-height: 56px; font-weight: 500; letter-spacing: -0.005em; }
+
+.t-heading { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 500; }
+
+.t-accent { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; font-style: italic; }
+
+.t-title { font-family: var(--font-display); font-size: 26px; line-height: 32px; font-weight: 500; }
+
+.t-lead { font-family: var(--font-display); font-size: 20px; line-height: 30px; font-weight: 400; font-style: italic; }
+
+.t-label { font-family: var(--font-display); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; }
+
+.t-script { font-family: var(--font-script); font-size: 48px; line-height: 60px; font-weight: 400; }
+
+.t-body-lg { font-family: var(--font-sans); font-size: 18px; line-height: 30px; font-weight: 400; }
+
+.t-body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; }
+
+.t-button { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.t-caption { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 400; }

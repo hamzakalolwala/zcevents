@@ -1,0 +1,68 @@
+/* ZC Events — portfolio page: the stage and detail grids, and the photo viewer. Tokens only. */
+
+/* Grid items are link targets (portfolio.html#lattice-arches): leave a little room above them. */
+.pf-item { scroll-margin-top: var(--space-8); }
+
+/* Ceremony names (and any credit) in captions move to the next line whole rather than splitting
+   ("Mama Mosalu"). An inline-block, not nowrap: in a column narrower than the phrase (a phone column
+   at 320px is 136px) it wraps inside instead of spilling past the column and scrolling the page
+   sideways. */
+.pf-keep { display: inline-block; max-width: 100%; }
+
+/* ---------- tiles: the Gallery's media inside a button that opens the viewer ---------- */
+.pf-tile { display: block; width: 100%; margin: 0; padding: 0; border: 0; border-radius: var(--radius-none); background: none; color: inherit; font: inherit; cursor: zoom-in; }
+.pf-tile .zc-gallery__media { display: block; }
+.pf-tile:focus-visible { outline: 2px solid transparent; box-shadow: var(--focus-ring); }
+/* Hover: the photo scales 3%, as photos in cards do. */
+.pf-tile .zc-gallery__img { transition: transform 600ms ease; }
+.pf-tile:hover .zc-gallery__img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .pf-tile .zc-gallery__img { transition: none; } }
+
+/* ---------- details band: four arches, and four landscape close-ups in the same columns ---------- */
+.site-grid.pf-arches { list-style: none; padding: 0; margin-bottom: 0; }
+.zc-gallery.pf-gallery--details { --zc-cols: 4; }
+@media (max-width: 960px) { .zc-gallery.pf-gallery--details { --zc-cols: 2; } }
+
+@media (max-width: 720px) {
+  /* Phones: the first stage spans both columns, so the nine stages fill their rows. */
+  .pf-gallery--stages > .pf-item:first-child { grid-column: 1 / -1; }
+  /* Arches keep the Gallery's phone gutter, so the two grids line up. */
+  .site-grid.pf-arches { gap: var(--space-4); }
+}
+/* Two arches across on phones, like the tiles beneath them. */
+@media (max-width: 600px) { .site-grid.pf-arches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the viewer: a native modal dialog on a scrim backdrop; nothing animates ---------- */
+/* Lock the page behind it, keeping the scrollbar's gutter so the page doesn't widen and jump. */
+html:has(.pf-viewer[open]) { overflow: hidden; scrollbar-gutter: stable; }
+.pf-viewer {
+  box-sizing: border-box;
+  width: min(var(--container), calc(100vw - 2 * var(--space-8)));
+  height: calc(100vh - 2 * var(--space-8));
+  height: calc(100dvh - 2 * var(--space-8));
+  max-width: none; max-height: none;
+  margin: auto; padding: var(--space-4) var(--space-6) var(--space-6);
+  border: 0; border-radius: var(--radius-none);
+  background: var(--surface-deep); color: var(--on-deep);
+  overflow: auto;
+}
+.pf-viewer[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: var(--space-4); }
+.pf-viewer::backdrop { background: var(--scrim); }
+.pf-viewer__top { display: flex; justify-content: flex-end; }
+.pf-viewer__figure { margin: 0; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: var(--space-3); }
+/* The whole photograph, never cropped: panoramas show their full width here. */
+.pf-viewer__frame { position: relative; min-height: 0; }
+.pf-viewer__img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.pf-viewer__caption { margin: 0; text-align: center; color: var(--on-deep); }
+.pf-viewer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4); }
+@media (max-width: 640px) {
+  .pf-viewer {
+    width: calc(100vw - 2 * var(--space-4));
+    height: calc(100vh - 2 * var(--space-4));
+    height: calc(100dvh - 2 * var(--space-4));
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+  /* The photo runs to the panel's edges, so it gets the whole width. */
+  .pf-viewer__frame { margin: 0 calc(-1 * var(--space-4)); }
+  .pf-viewer .zc-btn { padding: 0 var(--space-4); }
+}

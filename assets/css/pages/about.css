@@ -1,0 +1,46 @@
+/* ZC Events — about page only. Loads after site.css. Every colour, size and space is a token. */
+
+/* ---------- Intro: centred heading, then the text column beside one arch; stacked below 860px ---------- */
+.about-intro__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-16); align-items: center; }
+.about-intro__media { width: 100%; }
+@media (max-width: 860px) {
+  .about-intro__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-12); }
+  /* Half the narrow container keeps the portrait arch from filling a tablet screen. */
+  .about-intro__media { max-width: calc(var(--container-narrow) / 2); justify-self: center; }
+}
+
+/* ---------- What we make: photo beside text, sides alternating; stacked on phones ---------- */
+.about-make { list-style: none; margin-bottom: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-16); }
+.about-make__item { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-12); align-items: center; }
+.about-make__item--flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.about-make__item--flip .about-make__media { grid-column: 2; grid-row: 1; }
+.about-make__item--flip .about-make__text { grid-column: 1; grid-row: 1; }
+.about-make__photo { aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface); }
+.about-make__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The welcome board stands in the section's one arch, held narrower than the 3:2 photos. */
+.about-make__item--arch .zc-arch { max-width: calc(var(--container-narrow) / 2); margin: 0 auto; }
+.about-make__title { margin: 0; color: var(--ink); }
+.about-make__body { margin: var(--space-3) 0 0; max-width: var(--measure); color: var(--ink); }
+.about-make__more { margin: var(--space-6) 0 0; }
+@media (max-width: 720px) {
+  .about-make { gap: var(--space-12); }
+  .about-make__item, .about-make__item--flip { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .about-make__item--flip .about-make__media, .about-make__item--flip .about-make__text { grid-column: auto; grid-row: auto; }
+}
+
+/* ---------- Ceremonies: the names set like a welcome board, between two champagne rules ---------- */
+.about-ceremonies {
+  list-style: none; margin-left: auto; margin-right: auto; margin-bottom: 0; padding: var(--space-6) 0;
+  max-width: var(--container-narrow); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6) var(--space-4);
+  border-top: 1px solid var(--champagne); border-bottom: 1px solid var(--champagne);
+  color: var(--ink); text-align: center;
+}
+@media (max-width: 600px) { .about-ceremonies { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- How we work: three numbered steps, each under a champagne rule ---------- */
+.about-steps { list-style: none; margin-bottom: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
+.about-step { border-top: 1px solid var(--champagne); padding-top: var(--space-6); }
+.about-step__num { margin: 0 0 var(--space-3); color: var(--champagne-ink); }
+.about-step__title { margin: 0 0 var(--space-2); color: var(--ink); }
+.about-step__text { margin: 0; max-width: var(--measure); color: var(--ink); }
+@media (max-width: 760px) { .about-steps { grid-template-columns: minmax(0, 1fr); } }

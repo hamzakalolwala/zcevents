@@ -1,0 +1,49 @@
+/* ZC Events website — page frame shared by every page. Loads after tokens.css and bundle.css.
+   Every colour, size and radius is a token; page-only styles go in css/pages/<page>.css. */
+
+html { -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; }
+main:focus { outline: none; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid transparent; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+
+/* Skip link: hidden until focused, then a rose-on-raised tab at the top left. */
+.site-skip { position: absolute; left: var(--space-4); top: var(--space-2); z-index: 10; padding: var(--space-2) var(--space-4); background: var(--surface-raised); color: var(--rose); font-size: 14px; line-height: 20px; font-weight: 500; text-decoration: none; transform: translateY(-200%); }
+.site-skip:focus { transform: none; outline: 2px solid transparent; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+
+/* Section bands: space-24 top and bottom on desktop, space-16 on phones; content held to container. */
+.site-section { padding: var(--space-24) var(--space-8); }
+.site-section--surface { background: var(--surface); }
+.site-section--tint { background: var(--surface-tint); }
+.site-section--deep { background: var(--surface-deep); color: var(--on-deep); }
+.site-container { max-width: var(--container); margin: 0 auto; }
+.site-container--narrow { max-width: var(--container-narrow); }
+@media (max-width: 640px) { .site-section { padding: var(--space-16) var(--space-4); } }
+
+/* A heading sits space-12 above its content. */
+.site-after-heading { margin-top: var(--space-12); }
+
+/* Card and arch grids: three across on desktop, two on tablets, one on phones; space-8 gutters. */
+.site-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
+.site-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); }
+.site-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 960px) { .site-grid, .site-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .site-grid, .site-grid--4, .site-grid--2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* Running text: left-aligned, held to measure. */
+.site-prose { max-width: var(--measure); }
+.site-prose p { margin: 0 0 var(--space-4); }
+.site-prose p:last-child { margin-bottom: 0; }
+
+/* A centred row under a grid ("See the portfolio"). */
+.site-more { margin-top: var(--space-12); text-align: center; }
+
+/* Centred intros wrap into even lines rather than leaving one word alone on the last. */
+.zc-section-heading__intro { text-wrap: balance; }
+
+/* 44px touch targets. Quiet buttons keep their label centred by the button's inline-flex; footer
+   links stack with no gap, and their hover underline sits under the words, not under the box. */
+.zc-btn--quiet { min-height: 44px; }
+.zc-footer__col { gap: 0; }
+.zc-footer__link { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 0; text-underline-offset: 4px; }
+.zc-footer__link:hover { text-decoration: underline; text-decoration-color: var(--champagne); }

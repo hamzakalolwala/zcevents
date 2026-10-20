@@ -1,0 +1,46 @@
+/* ZC Events — home page only. Loads after site.css. Every colour, size and radius is a token. */
+
+/* ---------- Recent weddings: on tablets (two across) the third card sits centred, not alone on the left ---------- */
+@media (min-width: 601px) and (max-width: 960px) {
+  .home-recent > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc((100% - var(--space-8)) / 2); }
+}
+
+/* ---------- What we make: one row of arches, the words centred under each ---------- */
+.home-offer { display: flex; flex-direction: column; gap: var(--space-4); text-align: center; }
+.home-offer__title { margin: 0; color: var(--ink); }
+.home-offer__text { margin: var(--space-2) 0 0; color: var(--ink); }
+/* Phones: each arch sits beside its words instead of four tall arches stacked. */
+@media (max-width: 600px) {
+  .home-offer { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; text-align: left; }
+}
+
+/* ---------- Ceremonies: heading and link on the left, the names on an arch-topped board beside them ---------- */
+.home-ceremonies {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template-areas: "words board" "more board"; column-gap: var(--space-12);
+}
+.home-ceremonies__words { grid-area: words; align-self: end; }
+.home-ceremonies .home-board { grid-area: board; align-self: center; }
+.home-ceremonies__more { grid-area: more; align-self: start; margin: var(--space-8) 0 0; }
+/* Phones: stacked and centred like the other sections, the link after the board. */
+@media (max-width: 640px) {
+  .home-ceremonies { grid-template-columns: minmax(0, 1fr); grid-template-areas: "words" "board" "more"; row-gap: var(--space-12); }
+  .home-ceremonies .zc-section-heading { margin: 0 auto; text-align: center; }
+  .home-ceremonies .zc-section-heading__rule { margin-left: auto; }
+  .home-ceremonies__more { margin: 0; text-align: center; }
+}
+
+/* Like a welcome board: a surface-tint panel with the arch on top and a 1px champagne line
+   inset space-2, the names set in label capitals and centred. */
+.home-board {
+  position: relative; box-sizing: border-box; width: 100%; max-width: calc(var(--space-16) * 5); margin: 0 auto;
+  padding: var(--space-16) var(--space-8) var(--space-12);
+  background: var(--surface-tint); border-radius: var(--radius-arch) var(--radius-arch) 0 0; text-align: center;
+}
+.home-board::after {
+  content: ""; position: absolute; inset: var(--space-2); pointer-events: none;
+  border: 1px solid var(--champagne); border-radius: var(--radius-arch) var(--radius-arch) 0 0;
+}
+.home-board__rule { display: block; width: var(--space-12); height: 1px; margin: 0 auto; background: var(--champagne); }
+.home-board__list { list-style: none; margin: var(--space-6) 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.home-board__item { color: var(--champagne-ink); }

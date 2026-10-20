@@ -1,0 +1,36 @@
+/* ZC Events — enquire page: the form beside a slim aside. Loads after site.css. Tokens only. */
+
+/* Two columns on desktop: the form column (held to container-narrow) and a slim aside. */
+.enquire-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--space-16); align-items: start; }
+.enquire-main { max-width: var(--container-narrow); }
+/* Keeps "day" from sitting alone on the last line at phone widths. */
+.enquire-main .zc-section-heading__title { text-wrap: balance; }
+
+/* The form's wrapper takes focus once the thank-you note replaces the form; the note itself shows. */
+.enquire-form:focus { outline: none; }
+
+/* The thank-you note sits on leaf-soft, where only ink carries text: its link is ink, underlined. */
+.enquire-form .zc-note__text a { color: var(--ink); overflow-wrap: anywhere; }
+.enquire-form .zc-note__text a:hover { text-decoration-thickness: 2px; }
+
+/* The aside: two short notes under hairlines, then one detail under an arch. */
+.enquire-aside { display: flex; flex-direction: column; gap: var(--space-12); }
+.enquire-notes { display: flex; flex-direction: column; gap: var(--space-8); }
+.enquire-note { border-top: 1px solid var(--line); padding-top: var(--space-6); }
+.enquire-note__title { margin: 0 0 var(--space-3); color: var(--champagne-ink); }
+.enquire-note__text { margin: 0; color: var(--ink); }
+/* A link on its own line, so it gets a 44px touch target. The 9px above the text inside that box
+   takes the place of the old 8px top margin. */
+.enquire-note__email { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+
+/* Tablets: stack, form first; the aside sets its notes beside the arch. */
+@media (max-width: 960px) {
+  .enquire-layout { grid-template-columns: minmax(0, 1fr); }
+  .enquire-aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); align-items: center; max-width: var(--container-narrow); }
+}
+
+/* Phones: one column throughout; the notes come before the arch. */
+@media (max-width: 600px) {
+  .enquire-layout { gap: var(--space-12); }
+  .enquire-aside { grid-template-columns: minmax(0, 1fr); gap: var(--space-12); }
+}
