@@ -24,6 +24,9 @@
     }
     w.location.href = url;
   };
+  /** The like counter (likes-worker/ in the project, a Cloudflare Worker): GET reads the count,
+      POST adds one. Empty: no like button is shown. */
+  SITE.LIKES_URL = 'https://zc-events-likes.hamzabadri521.workers.dev/likes';
   SITE.YEAR = 2026;
   SITE.CREDIT = 'Photography: Clicktography';
 
@@ -161,7 +164,59 @@
         title: h(React.Fragment, null, 'Tell us about the ', h('em', null, 'day')),
         intro: 'Share the date, the ceremony and anything you already have in mind, and we will reply to talk it through.',
       }),
-      h('div', { className: 'site-more' }, h(Z.Button, { variant: 'primary', href: SITE.HREF.enquire }, 'Enquire')));
+      h('div', { className: 'site-more' }, h(Z.Button, { variant: 'primary', href: SITE.HREF.enquire }, 'Enquire')),
+      h(SITE.Like));
+  };
+
+  /* ---------- the like button ----------
+     One count for the whole site. The page is built with no count (the server can't know it), then the
+     browser fetches it. A visitor can like once; their browser remembers, so the button shows "Liked". */
+  var HEART = 'M12 20.2s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.5 2.5c0 5.8-7.5 10.4-7.5 10.4z';
+  var LIKED_KEY = 'zc-events-liked';
+  function heart(filled) {
+    return h('svg', { className: 'zc-glyph site-like__heart', width: 18, height: 18, viewBox: '0 0 24 24', fill: filled ? 'currentColor' : 'none',
+      stroke: 'currentColor', strokeWidth: 1.5, strokeLinejoin: 'round', 'aria-hidden': 'true', focusable: 'false' }, h('path', { d: HEART }));
+  }
+  function readCount(r) { return r.ok ? r.json() : null; }
+  SITE.formatCount = function (n) { return Number(n).toLocaleString('en-IN'); };
+  SITE.Like = function Like() {
+    var c = React.useState(null), count = c[0], setCount = c[1];
+    var l = React.useState(false), liked = l[0], setLiked = l[1];
+    React.useEffect(function () {
+      try { setLiked(w.localStorage.getItem(LIKED_KEY) === '1'); } catch (e) { /* private mode */ }
+      if (!SITE.LIKES_URL || typeof w.fetch !== 'function') return undefined;
+      var live = true;
+      w.fetch(SITE.LIKES_URL).then(readCount).then(function (d) {
+        if (live && d && typeof d.count === 'number') setCount(d.count);
+      }).catch(function () { /* the count just doesn't show */ });
+      return function () { live = false; };
+    }, []);
+    function like() {
+      if (liked) return;
+      var before = count;
+      setLiked(true);
+      if (typeof count === 'number') setCount(count + 1);
+      try { w.localStorage.setItem(LIKED_KEY, '1'); } catch (e) { /* private mode */ }
+      if (typeof w.fetch !== 'function') return;
+      w.fetch(SITE.LIKES_URL, { method: 'POST' }).then(function (r) {
+        if (!r.ok) throw new Error('like not counted');
+        return r.json();
+      }).then(function (d) {
+        if (d && typeof d.count === 'number') setCount(d.count);
+      }).catch(function () {
+        // Not counted (offline, or too many likes): undo, so the visitor can try again.
+        setLiked(false); setCount(before);
+        try { w.localStorage.removeItem(LIKED_KEY); } catch (e) { /* private mode */ }
+      });
+    }
+    if (!SITE.LIKES_URL) return null;
+    var label = liked ? 'Liked' : 'Like';
+    return h('p', { className: 'site-like' },
+      h('span', { className: 'site-like__ask' }, 'Like our work?'),
+      h(Z.Button, { variant: 'secondary', className: 'site-like__button', 'aria-pressed': liked, onClick: like,
+          'aria-label': label + (typeof count === 'number' && count > 0 ? ', ' + SITE.formatCount(count) + (count === 1 ? ' like' : ' likes') : '') },
+        heart(liked), label,
+        typeof count === 'number' && count > 0 ? h('span', { className: 'site-like__count', 'aria-hidden': 'true' }, SITE.formatCount(count)) : null));
   };
 
   /** Registers a page. meta: { title, description, hero? (image path to preload), image? (og:image) }. */

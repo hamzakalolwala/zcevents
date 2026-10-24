@@ -47,3 +47,11 @@ a:focus-visible { outline: 2px solid transparent; box-shadow: var(--focus-ring);
 .zc-footer__col { gap: 0; }
 .zc-footer__link { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 0; text-underline-offset: 4px; }
 .zc-footer__link:hover { text-decoration: underline; text-decoration-color: var(--champagne); }
+
+/* The like button, under the closing band's Enquire: a secondary button with the heart in the
+   components' 1.5px line; once liked, the heart fills and the button takes the rose. */
+.site-like { margin: var(--space-8) 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-3); }
+.site-like__ask { color: var(--ink-muted); font-size: 14px; line-height: 20px; }
+.site-like__button[aria-pressed="true"] { color: var(--rose); border-color: var(--rose); cursor: default; }
+.site-like__button[aria-pressed="true"]:hover { background: transparent; }
+.site-like__count { padding-left: var(--space-2); border-left: 1px solid currentColor; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
