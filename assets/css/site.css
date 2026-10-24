@@ -48,6 +48,11 @@ a:focus-visible { outline: 2px solid transparent; box-shadow: var(--focus-ring);
 .zc-footer__link { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 0; text-underline-offset: 4px; }
 .zc-footer__link:hover { text-decoration: underline; text-decoration-color: var(--champagne); }
 
+/* The website credit in the footer's base line: as quiet as the photo credit beside it, and on-deep,
+   not rose, because it sits on surface-deep (champagne on hover, like the footer's other links). */
+.zc-footer__base .site-maker { color: var(--on-deep); text-decoration: none; border-bottom: 1px solid transparent; }
+.zc-footer__base .site-maker:hover { color: var(--champagne); border-bottom-color: var(--champagne); }
+
 /* The like button, under the closing band's Enquire: a secondary button with the heart in the
    components' 1.5px line; once liked, the heart fills and the button takes the rose. */
 .site-like { margin: var(--space-8) 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-3); }

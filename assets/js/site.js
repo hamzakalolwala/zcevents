@@ -28,6 +28,8 @@
       POST adds one. Empty: no like button is shown. */
   SITE.LIKES_URL = 'https://zc-events-likes.hamzabadri521.workers.dev/likes';
   SITE.YEAR = 2026;
+  /** Who built the site: a quiet credit after the photo credit in every footer. */
+  SITE.MAKER = { name: 'Hamza Badri', email: 'hamzabadri521@gmail.com' };
   SITE.CREDIT = 'Photography: Clicktography';
 
   SITE.HREF = { home: 'index.html', portfolio: 'portfolio.html', about: 'about.html', enquire: 'enquire.html' };
@@ -137,7 +139,9 @@
          form's own primary "Send enquiry". */
       h(Z.SiteHeader, { links: links, cta: props.page === 'enquire' ? undefined : SITE.CTA, homeHref: SITE.HREF.home }),
       h('main', { id: 'main', tabIndex: -1 }, props.children),
-      h(Z.SiteFooter, { email: SITE.EMAIL, year: SITE.YEAR, links: footerLinks, credit: props.credit || SITE.CREDIT }));
+      h(Z.SiteFooter, { email: SITE.EMAIL, year: SITE.YEAR, links: footerLinks, credit: h(React.Fragment, null,
+        props.credit || SITE.CREDIT, ' · Website by ' + SITE.MAKER.name + ' · ',
+        h('a', { className: 'site-maker', href: 'mailto:' + SITE.MAKER.email + '?subject=' + encodeURIComponent('A website like ZC Events') }, SITE.MAKER.email)) }));
   };
 
   /** The footer credit for a page that shows these photo keys. A photo with its own `credit` adds it
