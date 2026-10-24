@@ -144,6 +144,9 @@
           h('figcaption', { className: 'pf-viewer__caption t-body', 'aria-live': 'polite' }, cur ? cur.caption : null)),
         h('div', { className: 'pf-viewer__nav' },
           h(Z.Button, { onPhoto: true, 'aria-label': 'Previous photo', onClick: function () { step(-1); } }, glyph(ARROW_BACK), 'Previous'),
+          /* Ask the studio about the photo on screen, its name typed into the WhatsApp message. */
+          cur && S.WHATSAPP ? h(Z.Button, { variant: 'primary', target: '_blank', rel: 'noopener',
+            href: S.whatsappHref('Hello ZC Events, I saw the "' + cur.name + '" setup on your website and would like to ask about it.') }, 'Ask about this setup') : null,
           h(Z.Button, { onPhoto: true, arrow: true, 'aria-label': 'Next photo', onClick: function () { step(1); } }, 'Next'))));
   }
 

@@ -24,6 +24,13 @@
     }
     w.location.href = url;
   };
+  /** The WhatsApp button that stays in the bottom corner of every page, with a hello typed in. */
+  var WA_HELLO = { portfolio: 'Hello ZC Events, I was looking at your portfolio and would like to ask about decor for our celebration.' };
+  SITE.WhatsAppFloat = function WhatsAppFloat(props) {
+    if (!SITE.WHATSAPP) return null;
+    var text = WA_HELLO[props.page] || 'Hello ZC Events, I found your website and would like to ask about decor for our celebration.';
+    return h('a', { className: 'zc-btn zc-btn--secondary site-wa', href: SITE.whatsappHref(text), target: '_blank', rel: 'noopener' }, 'Chat on WhatsApp');
+  };
   /** The like counter (likes-worker/ in the project, a Cloudflare Worker): GET reads the count,
       POST adds one. Empty: no like button is shown. */
   SITE.LIKES_URL = 'https://zc-events-likes.hamzabadri521.workers.dev/likes';
@@ -141,7 +148,8 @@
       h('main', { id: 'main', tabIndex: -1 }, props.children),
       h(Z.SiteFooter, { email: SITE.EMAIL, year: SITE.YEAR, links: footerLinks, credit: h(React.Fragment, null,
         props.credit || SITE.CREDIT, ' · Website by ' + SITE.MAKER.name + ' · ',
-        h('a', { className: 'site-maker', href: 'mailto:' + SITE.MAKER.email + '?subject=' + encodeURIComponent('A website like ZC Events') }, SITE.MAKER.email)) }));
+        h('a', { className: 'site-maker', href: 'mailto:' + SITE.MAKER.email + '?subject=' + encodeURIComponent('A website like ZC Events') }, SITE.MAKER.email)) }),
+      h(SITE.WhatsAppFloat, { page: props.page }));
   };
 
   /** The footer credit for a page that shows these photo keys. A photo with its own `credit` adds it

@@ -55,6 +55,15 @@ a:focus-visible { outline: 2px solid transparent; box-shadow: var(--focus-ring);
 
 /* The like button, under the closing band's Enquire: a secondary button with the heart in the
    components' 1.5px line; once liked, the heart fills and the button takes the rose. */
+/* The WhatsApp button in the bottom corner of every page: a secondary button on the raised surface,
+   floating over photos with shadow-lg. On phones the footer's last line gets room beneath it. */
+.site-wa { position: fixed; right: var(--space-8); bottom: calc(var(--space-8) + env(safe-area-inset-bottom, 0px)); z-index: 5; background: var(--surface-raised); box-shadow: var(--shadow-lg); }
+.site-wa:hover { background: var(--surface-tint); }
+@media (max-width: 640px) {
+  .site-wa { right: var(--space-4); bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); }
+  body:has(.site-wa) .zc-footer__base { padding-bottom: calc(var(--space-6) + 64px); }
+}
+
 .site-like { margin: var(--space-8) 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-3); }
 .site-like__ask { color: var(--ink-muted); font-size: 14px; line-height: 20px; }
 .site-like__button[aria-pressed="true"] { color: var(--rose); border-color: var(--rose); cursor: default; }
