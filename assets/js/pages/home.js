@@ -55,7 +55,7 @@
               h('p', { className: 'home-offer__text t-body' }, o.text)));
         })),
       h('div', { className: 'site-more' },
-        h('p', { className: 'home-terms t-body' }, 'Setups from ' + S.FROM_PRICE + ', across South India: in Chennai, Bengaluru, Hyderabad and beyond.'),
+        h('p', { className: 'home-terms t-body' }, 'Setups from ' + S.FROM_PRICE + ', for weddings and every kind of event, all over India and abroad.'),
         h(Z.Button, { variant: 'quiet', href: HREF.about + '#what-we-make' }, 'More about what we make')));
   }
 
@@ -84,7 +84,7 @@
     return h(S.Page, { page: 'home', credit: S.creditFor(SHOWN) },
       h(Z.Hero, {
         image: HERO.src, alt: HERO.alt, position: HERO.position, height: 640,
-        eyebrow: 'Wedding decor across South India',
+        eyebrow: 'Wedding and event decor across India',
         title: h(F, null, 'We bring your ', h('em', null, 'visions'), h('br'), 'into reality'),
         actions: h(F, null,
           h(Z.Button, { variant: 'primary', size: 'lg', href: HREF.portfolio }, 'See our work'),
@@ -97,8 +97,8 @@
   }
 
   S.register('home', {
-    title: 'ZC Events · Wedding decor across South India',
-    description: 'Wedding stages, entrances, welcome boards and photo corners by ZC Events, across South India. Setups from ' + S.FROM_PRICE + '.',
+    title: 'ZC Events · Wedding and event decor across India',
+    description: 'Stages, entrances, welcome boards and photo corners by ZC Events, for weddings and every event across India. Setups from ' + S.FROM_PRICE + '.',
     hero: HERO.src,
   }, HomePage);
 })(window);

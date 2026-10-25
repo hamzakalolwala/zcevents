@@ -38,10 +38,10 @@
   /** Who built the site: a quiet credit after the photo credit in every footer. */
   SITE.MAKER = { name: 'Hamza Badri', email: 'hamzabadri521@gmail.com' };
   SITE.CREDIT = 'Photography: Clicktography';
-  /** Price and travel, as the studio gave them (October 2026): setups start at one lakh; the studio
-      travels to weddings anywhere in the southern states. */
-  SITE.FROM_PRICE = '₹1,00,000';
-  SITE.AREA = { cities: 'Chennai, Bengaluru and Hyderabad', states: 'Tamil Nadu, Kerala, Karnataka and Telangana' };
+  /** Price, advance and travel, as the studio gave them (25 October 2026): setups start at ₹15,000,
+      the advance is 50%, and it takes on weddings and any other event all over India, and abroad. */
+  SITE.FROM_PRICE = '₹15,000';
+  SITE.ADVANCE = '50%';
 
   SITE.HREF = { home: 'index.html', portfolio: 'portfolio.html', about: 'about.html', enquire: 'enquire.html' };
   SITE.NAV = [
