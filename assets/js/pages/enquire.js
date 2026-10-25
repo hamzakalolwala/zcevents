@@ -41,6 +41,20 @@
     return S.whatsappHref(['Hello ZC Events, I would like to enquire about the decor for our celebration.', ''].concat(enquiryLines(v)).join('\n'));
   }
 
+  /* What families ask before they enquire. Price, advance and cities are the studio's own answers
+     (October 2026), kept to what it said; the ceremonies answer is copy for the family to confirm. */
+  var ceremonies = S.CEREMONIES.slice(0, -1).join(', ') + ' and ' + S.CEREMONIES[S.CEREMONIES.length - 1];
+  var QUESTIONS = [
+    { q: 'How much does a setup cost?',
+      a: 'Our setups start from ' + S.FROM_PRICE + '. Beyond that, the price depends on what you would like made for the day. Tell us about it and we will reply to talk it through.' },
+    { q: 'Is there an advance?',
+      a: 'Usually not. Sometimes part of it is paid before the day: on a ₹2,00,000 setup, for example, ₹1,00,000.' },
+    { q: 'Which cities does ZC Events work in?',
+      a: 'We work across South India: in ' + S.AREA.cities + ', and in other cities in ' + S.AREA.states + '.' },
+    { q: 'Which ceremonies does ZC Events dress?',
+      a: 'We dress stages and entrances for each of them: ' + ceremonies + '.' },
+  ];
+
   function EnquirePage() {
     /* Once the enquiry is sent: { url, via: 'whatsapp' | 'email', mailto }; null until then. The
        mailto always carries the enquiry, so the email fallback never makes anyone type it again. */
@@ -105,11 +119,20 @@
                 h('p', { className: 'enquire-note__text' }, 'You are welcome to write to us directly, in your own words.'),
                 byWhatsApp && h('a', { className: 'enquire-note__email', href: S.whatsappHref(''), target: '_blank', rel: 'noopener' }, 'Message us on WhatsApp'),
                 h('a', { className: 'enquire-note__email', href: 'mailto:' + S.EMAIL }, S.EMAIL))),
-            h(Z.ArchFrame, { src: photo.src, alt: photo.alt, caption: photo.caption, position: photo.position })))));
+            h(Z.ArchFrame, { src: photo.src, alt: photo.alt, caption: photo.caption, position: photo.position })))),
+
+      h(S.Section, { tone: 'tint', width: 'narrow', id: 'questions' },
+        h(Z.SectionHeading, { eyebrow: 'Questions', title: h(React.Fragment, null, 'What families ', h('em', null, 'ask')) }),
+        h('ul', { className: 'enquire-faq site-after-heading', role: 'list' },
+          QUESTIONS.map(function (f) {
+            return h('li', { key: f.q, className: 'enquire-faq__item' },
+              h('h3', { className: 'enquire-faq__q t-title' }, f.q),
+              h('p', { className: 'enquire-faq__a' }, f.a));
+          }))));
   }
 
   S.register('enquire', {
     title: 'Enquire · ZC Events',
-    description: 'Tell ZC Events about the day: the date, the ceremony, the venue and the look you have in mind.',
+    description: 'Tell ZC Events about the day: the date, the ceremony, the venue and the look you have in mind. Setups from ' + S.FROM_PRICE + ', across South India.',
   }, EnquirePage);
 })(window);

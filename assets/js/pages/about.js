@@ -1,9 +1,9 @@
 /* ZC Events — about page: the studio in its own words, what we make, the ceremonies, how we work.
-   Text uses only what the studio has told us (see BUILD-BRIEF.md, "What we know"). No owner's name,
-   years, places, prices or counts.
-   Needs from the family: the owner's name and a line of her story (for the intro); the city or area
-   the studio covers; confirmation of the "How we work" steps (STEPS below); the site's domain, so link
-   previews can carry an absolute og:image. */
+   Text uses only what the studio has told us (see BUILD-BRIEF.md, "What we know"): since October 2026
+   that includes where it works and its starting price (SITE.AREA, SITE.FROM_PRICE). No owner's name,
+   years or counts.
+   Needs from the family: the owner's name and a line of her story (for the intro); confirmation of the
+   "How we work" steps (STEPS below); the site's domain, so link previews can carry an absolute og:image. */
 (function (w) {
   var React = w.React, Z = w.ZCEvents, S = w.ZCSite, h = React.createElement;
 
@@ -48,6 +48,8 @@
         h('div', { className: 'site-prose' },
           h('p', { className: 't-body-lg' },
             'ZC Events is a wedding-decor studio. We dress the stage where the couple sit, the entrance and aisle, the boards that greet your guests and the hall around them, and we build corners made for photographs. We work in drapes, arches, flowers and light.'),
+          h('p', null,
+            'We work across South India: in ' + S.AREA.cities + ', and in other cities in ' + S.AREA.states + '. Setups start from ' + S.FROM_PRICE + '.'),
           h('p', null,
             'We would rather show you than tell you. Every photograph on this site is a setup we made, shown as it stood and lit as it was, and the ',
             h('a', { href: S.HREF.portfolio }, 'portfolio'), ' has all of them.')),
@@ -105,7 +107,7 @@
 
   S.register('about', {
     title: 'About · ZC Events',
-    description: 'About ZC Events, the wedding-decor studio: what we make, the ceremonies we dress for, and how we plan the look with you.',
+    description: 'About ZC Events, the wedding-decor studio working across South India: what we make, the ceremonies we dress for, and how we plan the look with you.',
     image: S.photo('royal-blue-velvet-arches').src,
   }, AboutPage);
 })(window);

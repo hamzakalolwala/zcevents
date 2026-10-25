@@ -23,6 +23,13 @@
    takes the place of the old 8px top margin. */
 .enquire-note__email { display: flex; width: fit-content; max-width: 100%; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
 
+/* What families ask: each question in the display face over its answer, hairlines between. */
+.enquire-faq { list-style: none; margin-bottom: 0; padding: 0; }
+.enquire-faq__item { padding: var(--space-6) 0; border-top: 1px solid var(--line); }
+.enquire-faq__item:last-child { border-bottom: 1px solid var(--line); }
+.enquire-faq__q { margin: 0; color: var(--ink); text-wrap: balance; }
+.enquire-faq__a { margin: var(--space-2) 0 0; max-width: var(--measure); color: var(--ink); }
+
 /* Tablets: stack, form first; the aside sets its notes beside the arch. */
 @media (max-width: 960px) {
   .enquire-layout { grid-template-columns: minmax(0, 1fr); }

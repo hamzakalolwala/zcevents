@@ -9,6 +9,11 @@
 .home-offer { display: flex; flex-direction: column; gap: var(--space-4); text-align: center; }
 .home-offer__title { margin: 0; color: var(--ink); }
 .home-offer__text { margin: var(--space-2) 0 0; color: var(--ink); }
+/* The hero's eyebrow wraps into two even lines on narrow phones rather than leaving "India" alone. */
+.zc-hero__eyebrow { text-wrap: balance; }
+
+/* Price and travel in one line above the link to the about page. */
+.home-terms { margin: 0 0 var(--space-2); color: var(--ink); }
 /* Phones: each arch sits beside its words instead of four tall arches stacked. */
 @media (max-width: 600px) {
   .home-offer { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; text-align: left; }
